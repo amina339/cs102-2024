@@ -1,4 +1,4 @@
-"""то как работает функция"""
+"""lalalal"""
 def text():
     return 'message'
     print(text())
