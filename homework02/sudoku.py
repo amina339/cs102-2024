@@ -62,8 +62,7 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    coll = [x[pos[1]] for x in grid]
-    return coll
+    return [x[pos[1]] for x in grid]
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -79,9 +78,9 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     start_row = (pos[0] // 3) * 3
     start_col = (pos[1] // 3) * 3
     square = []
-    for i in range(3):
-        for j in range(3):
-            square.append(grid[start_row + i][start_col + j])
+    for row in range(3):
+        for col in range(3):
+            square.append(grid[start_row + row][start_col + col])
     return square
 
 
@@ -94,10 +93,10 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    for i, p in enumerate(grid):
-        for j, s in enumerate(p):
-            if s == ".":
-                return (i, j)
+    for cordx, row in enumerate(grid):
+        for cordy, col in enumerate(row):
+            if col == ".":
+                return (cordx, cordy)
     return None
 
 
@@ -112,8 +111,7 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     True
     """
     num = [str(x) for x in range(1, 10)]
-    exn = [x for x in num if x not in get_block(grid, pos) + get_col(grid, pos) + get_row(grid, pos)]
-    return set(exn)
+    return {x for x in num if x not in get_block(grid, pos) + get_col(grid, pos) + get_row(grid, pos)}
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
